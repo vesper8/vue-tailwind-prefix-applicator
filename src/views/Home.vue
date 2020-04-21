@@ -59,14 +59,21 @@ export default {
 
   methods: {
     applyPrefix() {
-      let str = this.html;
+      const escapeRegExp = (s) => s.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+      let code = this.html;
 
       this.classes.forEach((cls) => {
-        // console.log(`prefixing ${cls}`);
-        str = str.replace(new RegExp(`(?<!-)\\b(?!-)${cls}(?<!-)\\b(?!-)`, 'g'), `${this.prefix}${cls}`);
+        code = code.replace(
+          new RegExp(
+            `(["':\\s])(?!${this.prefix})(-?${escapeRegExp(cls)})(?![-/])`,
+            'g',
+          ),
+          `$1${this.prefix}$2`,
+        );
       });
 
-      this.prefixed = str;
+      this.prefixed = code;
     },
   },
 };
