@@ -36,7 +36,10 @@ function extractClasses($file)
             '.lg:',
             '.xl:',
 
-            '.form',
+            '.active:',
+            '.focus:',
+            '.focus-within:',
+            '.hover:',
 
             '.group:hover',
             '.group:focus',
@@ -55,18 +58,22 @@ function extractClasses($file)
         $stripThese = [
             '.',
             ' {}',
-            ':focus:-ms-input-placeholder',
-            ':focus::-ms-input-placeholder',
-            ':focus::placeholder',
-            '::placeholder',
-            '::-ms-input-placeholder',
-            ':-ms-input-placeholder',
+            ' > :not(template) ~ :not(template)',
+
             '::-moz-placeholder',
+            '::-ms-check',
+            '::-ms-expand',
+            '::-ms-input-placeholder',
             '::-webkit-input-placeholder',
+            '::placeholder',
+
+            ':-ms-input-placeholder',
+            ':active',
+            ':after',
+            ':checked',
             ':focus-within',
             ':focus',
             ':hover',
-            ' > :not(template) ~ :not(template)',
         ];
 
         foreach ($stripThese as $strip) {
