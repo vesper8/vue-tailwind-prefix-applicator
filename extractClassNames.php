@@ -1,7 +1,7 @@
 <?php
 
 // Get latest versions of these two files from
-// https://unpkg.com/tailwindcss@%5E1.0/dist/tailwind.css
+// https://unpkg.com/tailwindcss@%5E2.0/dist/tailwind.css
 // https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.css
 
 $classes['tailwind.css'] = extractClasses(file_get_contents('tailwind.css'));
@@ -28,6 +28,10 @@ function extractClasses($file)
     for ($i = 0; $i < count($classes); $i++) {
         $match = trim($classes[$i]);
 
+        // only keep first part, ignore everything after space
+        $parts = explode(' ', $match);
+        $match = $parts[0];
+
         $match = stripslashes($match);
 
         $excludeThesePrefixes = [
@@ -35,6 +39,7 @@ function extractClasses($file)
             '.md:',
             '.lg:',
             '.xl:',
+            '.32xl:',
 
             '.active:',
             '.focus:',
@@ -57,8 +62,9 @@ function extractClasses($file)
 
         $stripThese = [
             '.',
-            ' {}',
-            ' > :not(template) ~ :not(template)',
+            // ' {}',
+            // ' > :not(template) ~ :not(template)',
+            // ' > :not([hidden]) ~ :not([hidden])',
 
             '::-moz-placeholder',
             '::-ms-check',
