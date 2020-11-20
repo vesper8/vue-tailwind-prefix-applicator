@@ -62,9 +62,6 @@ function extractClasses($file)
 
         $stripThese = [
             '.',
-            // ' {}',
-            // ' > :not(template) ~ :not(template)',
-            // ' > :not([hidden]) ~ :not([hidden])',
 
             '::-moz-placeholder',
             '::-ms-check',
@@ -96,8 +93,7 @@ $keepers = array_merge($classes['tailwind.css'], $classes['tailwind-ui.css']);
 
 sort($keepers);
 
-$file = '
-export default {
+$file = 'export default {
   data() {
     return {
       classes: [
